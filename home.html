@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SURPRISE!</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fef3e2;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .cake-container {
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      z-index: 1;
+    }
+
+    .cake {
+      width: 200px;
+      height: 150px;
+      background: purple;
+      border-radius: 10px 10px 0 0;
+      position: relative;
+      box-shadow: 0 8px 0 #d16e6e;
+    }
+
+    .cake::before {
+      content: '';
+      position: absolute;
+      width: 180px;
+      height: 20px;
+      background: white;
+      top: 0;
+      left: 10px;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .candle {
+      position: absolute;
+      width: 10px;
+      height: 30px;
+      background: yellow;
+      top: -40px;
+      left: 95px;
+    }
+
+    .flame {
+      width: 10px;
+      height: 10px;
+      background: orange;
+      border-radius: 50%;
+      position: absolute;
+      top: -10px;
+      left: 0;
+      animation: flicker 1s infinite;
+    }
+
+    @keyframes flicker {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    .letter,
+    .second-letter {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 250px;
+      background: white;
+      border: 2px solid #333;
+      border-radius: 10px;
+      transform: translate(-50%, -50%) scale(0);
+      transition: transform 0.5s ease;
+      z-index: 2;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      background-image: repeating-linear-gradient(
+        45deg, #f9f9f9, #f9f9f9 10px,
+        #f1f1f1 10px, #f1f1f1 20px
+      );
+    }
+
+    .letter.open,
+    .second-letter.open {
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .message {
+      display: none;
+      margin-top: 15px;
+      font-size: 1rem;
+      color: #333;
+    }
+
+    .show-btn,
+    .close-btn {
+      margin-top: 10px;
+      padding: 5px 10px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .close-btn {
+      background-color: #ffdddd;
+      border: 1px solid #d16e6e;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cake -->
+  <div class="cake-container" onclick="showLetter()">
+    <div class="cake">
+      <div class="candle">
+        <div class="flame"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- First Letter -->
+  <div class="letter" id="letter">
+    <h3>You've got a letter! 💌</h3>
+    <button class="show-btn" onclick="openFirstMessage()">Open Message</button>
+    <div class="message" id="message">
+      <p>Happy Birthday Maui! 🎉<br>Wishing you the very best and sana maenjoy mo yung day na to 🎂</p>
+      <button class="close-btn" onclick="closeLetter()">Close</button>
+    </div>
+  </div>
+
+  <!-- Second Letter -->
+  <div class="second-letter" id="secondLetter">
+    <h3>Oh one more surprise! ✨</h3>
+    <div class="message" style="display: block;">
+      <p>
+        Happy 19th Birthday I hope you enjoy this special day for you 💖<br>
+        Thank you for everything and sana you achieve what you want to achieve 😊<br>
+        Keep smiling and alam mo naman na I am always here supporting you <br>
+        I love you
+      </p>
+      <button class="close-btn" onclick="closeSecondLetter()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    function showLetter() {
+      document.getElementById('letter').classList.add('open');
+    }
+
+    function openFirstMessage() {
+      const msg = document.getElementById('message');
+      msg.style.display = 'block';
+
+      setTimeout(() => {
+        document.getElementById('secondLetter').classList.add('open');
+      }, 1000);
+    }
+
+    function closeLetter() {
+      document.getElementById('letter').classList.remove('open');
+      document.getElementById('message').style.display = 'none';
+    }
+
+    function closeSecondLetter() {
+      document.getElementById('secondLetter').classList.remove('open');
+    }
+  </script>
+
+</body>
+</html>
